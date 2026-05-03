@@ -194,7 +194,7 @@
 
     <!-- ملف الصوت الموسيقي (يجب استبدال الرابط برابط أغنية خطوة لاحقاً) -->
     <audio id="bg-music" loop preload="auto">
-        <source src="https://serv100.albumaty.com/2024/Albumaty.Com_hsyn_algsmy_fstank_alabyd.mp3" type="audio/mpeg">
+        <source src="https://serv100.albumaty.com/songs_2020/Albumaty.Com_hsyn_algsmy_edkhly_amry.mp3" type="audio/mpeg">
     </audio>
 
     <!-- شاشة البداية (Splash Screen) -->
@@ -357,61 +357,65 @@
     </section>
 
     <!-- قسم تأكيد الحضور (RSVP) -->
-    <section id="rsvp" class="py-20 bg-dark relative">
-        <div class="container mx-auto px-6 max-w-3xl reveal">
-            <div class="text-center mb-10">
-                <h2 class="font-ruqaa text-4xl text-white mb-4">تأكيد <span class="text-gold-DEFAULT">الحضور</span> (RSVP)</h2>
-                <p class="text-gray-400">نرجو تأكيد حضوركم قبل تاريخ ١ أغسطس، لتكتمل فرحتنا بكم.</p>
+    <section id="rsvp" class="py-20 bg-darker relative border-t border-gold-DEFAULT/10">
+        <div class="container mx-auto px-6 max-w-3xl reveal relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="font-ruqaa text-4xl text-white mb-3">تأكيد <span class="text-gold-DEFAULT">الحضور</span></h2>
+                <p class="text-gray-400 font-light">نرجو تأكيد حضوركم قبل تاريخ ١ أغسطس، لتكتمل فرحتنا بكم.</p>
             </div>
 
-            <form id="rsvp-form" class="glass-panel p-8 md:p-10 rounded-2xl shadow-2xl">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <form id="rsvp-form" class="glass-panel p-8 md:p-10 rounded-2xl border border-gold-DEFAULT/20 shadow-xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     <div>
-                        <label class="block text-gray-300 font-bold mb-2 text-sm" for="name">الاسم الكريم</label>
-                        <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border border-gold-DEFAULT/20 focus:outline-none focus:border-gold-DEFAULT focus:ring-1 focus:ring-gold-DEFAULT transition-colors bg-blackBg text-white placeholder-gray-600" placeholder="أدخل اسمك" required>
+                        <label class="block text-gold-light font-ruqaa text-lg mb-2" for="name">الاسم الكريم</label>
+                        <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border border-white/10 bg-blackBg/80 text-white focus:outline-none focus:border-gold-DEFAULT transition-colors" placeholder="أدخل اسمك الكريم" required>
                     </div>
                     <div>
-                        <label class="block text-gray-300 font-bold mb-2 text-sm" for="guests">عدد المرافقين</label>
-                        <select id="guests" class="w-full px-4 py-3 rounded-lg border border-gold-DEFAULT/20 focus:outline-none focus:border-gold-DEFAULT focus:ring-1 focus:ring-gold-DEFAULT transition-colors bg-blackBg text-white">
+                        <label class="block text-gold-light font-ruqaa text-lg mb-2" for="guests">عدد المرافقين</label>
+                        <select id="guests" class="w-full px-4 py-3 rounded-lg border border-white/10 bg-blackBg/80 text-white focus:outline-none focus:border-gold-DEFAULT transition-colors">
                             <option value="0" class="bg-dark">بدون مرافقين</option>
-                            <option value="1" class="bg-dark">1</option>
-                            <option value="2" class="bg-dark">2</option>
-                            <option value="3" class="bg-dark">3</option>
-                            <option value="4" class="bg-dark">4</option>
+                            <option value="1" class="bg-dark">مرافق واحد</option>
+                            <option value="2" class="bg-dark">مرافقان</option>
+                            <option value="3" class="bg-dark">٣ مرافقين</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <label class="block text-gray-300 font-bold mb-3 text-sm">هل ستشرفنا بالحضور؟</label>
-                    <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-6 sm:space-x-reverse">
-                        <label class="flex items-center cursor-pointer p-3 border border-gold-DEFAULT/20 bg-blackBg rounded-lg hover:border-gold-DEFAULT transition-colors flex-1">
-                            <input type="radio" name="attending" value="yes" class="w-5 h-5 text-gold-DEFAULT focus:ring-gold-DEFAULT border-gray-600 bg-dark" checked>
-                            <span class="mr-3 text-gray-200">بكل سرور، سأحضر</span>
+                    <label class="block text-gold-light font-ruqaa text-lg mb-4 text-center md:text-right">هل ستشرفنا بالحضور؟</label>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <label class="flex-1 cursor-pointer">
+                            <input type="radio" name="attending" value="yes" class="peer sr-only" checked>
+                            <div class="p-4 text-center border border-white/10 rounded-lg text-gray-500 peer-checked:text-white peer-checked:border-gold-DEFAULT peer-checked:bg-gold-DEFAULT/10 hover:bg-white/5 transition-all">
+                                <span>بكل سرور، سأحضر</span>
+                            </div>
                         </label>
-                        <label class="flex items-center cursor-pointer p-3 border border-gold-DEFAULT/20 bg-blackBg rounded-lg hover:border-gold-DEFAULT transition-colors flex-1">
-                            <input type="radio" name="attending" value="no" class="w-5 h-5 text-gold-DEFAULT focus:ring-gold-DEFAULT border-gray-600 bg-dark">
-                            <span class="mr-3 text-gray-200">أعتذر، لا يمكنني الحضور</span>
+                        <label class="flex-1 cursor-pointer">
+                            <input type="radio" name="attending" value="no" class="peer sr-only">
+                            <div class="p-4 text-center border border-white/10 rounded-lg text-gray-500 peer-checked:text-white peer-checked:border-gray-500 peer-checked:bg-white/10 hover:bg-white/5 transition-all">
+                                <span>أعتذر عن الحضور</span>
+                            </div>
                         </label>
                     </div>
                 </div>
                 
-                <div class="mb-6">
-                    <label class="block text-gray-300 font-bold mb-2 text-sm" for="message">رسالة للعروسين (اختياري)</label>
-                    <textarea id="message" rows="3" class="w-full px-4 py-3 rounded-lg border border-gold-DEFAULT/20 focus:outline-none focus:border-gold-DEFAULT focus:ring-1 focus:ring-gold-DEFAULT transition-colors bg-blackBg text-white placeholder-gray-600" placeholder="اكتب تهنئة..."></textarea>
+                <div class="mb-8">
+                    <label class="block text-gold-light font-ruqaa text-lg mb-2" for="message">رسالة للعروسين (اختياري)</label>
+                    <textarea id="message" rows="3" class="w-full px-4 py-3 rounded-lg border border-white/10 bg-blackBg/80 text-white focus:outline-none focus:border-gold-DEFAULT transition-colors" placeholder="اكتب تهنئة..."></textarea>
                 </div>
 
-                <button type="submit" class="w-full btn-gold py-4 rounded-lg font-bold text-lg shadow-lg">
+                <button type="submit" class="w-full btn-gold py-4 rounded-lg font-bold text-lg transition-transform hover:-translate-y-1">
                     إرسال التأكيد
                 </button>
             </form>
             
             <!-- رسالة النجاح -->
-            <div id="success-message" class="hidden mt-6 p-4 bg-gold-DEFAULT/10 border border-gold-DEFAULT/30 text-gold-light rounded-lg text-center backdrop-blur-sm">
+            <div id="success-message" class="hidden mt-6 p-4 border border-gold-DEFAULT/30 bg-gold-DEFAULT/10 text-gold-light rounded-lg text-center font-ruqaa text-xl">
                 شكراً لك! تم استلام ردك بنجاح.
             </div>
         </div>
     </section>
+
 
     <!-- الفوتر -->
     <footer class="bg-blackBg py-10 text-center border-t border-gold-DEFAULT/20 relative">
@@ -429,7 +433,7 @@
     
     // بمجرد أن تصبح البيانات جاهزة، نحدد وقت البدء
     audio.addEventListener('loadeddata', function() {
-        audio.currentTime = 53; // 1:53 تعادل 113 ثانية
+        audio.currentTime = 63; // 1:53 تعادل 113 ثانية
     }, false);
         // 0. منطق شاشة البداية والموسيقى (Splash Screen & Audio)
         const enterBtn = document.getElementById('enter-btn');
