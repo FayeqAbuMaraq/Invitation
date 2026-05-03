@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوة زفاف | أحمد وسارة</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                        ruqaa: ['Aref Ruqaa', 'serif'],
+                    },
+                    colors: {
+                        gold: {
+                            light: '#F9E5A0',
+                            DEFAULT: '#D4AF37',
+                            dark: '#AA771C'
+                        },
+                        dark: '#0a0a0a',
+                        darker: '#050505',
+                        blackBg: '#000000'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #E5E7EB; /* Light Gray for readability */
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* تأثيرات الظهور عند التمرير (Scroll Reveal) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* تصميم زجاجي أنيق داكن (Dark Glassmorphism) */
+        .glass-panel {
+            background: rgba(15, 15, 15, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+        }
+
+        /* خلفية القسم الرئيسي */
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; 
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(5, 5, 5, 0.6), rgba(0, 0, 0, 0.95));
+        }
+
+        /* إطار ذهبي مزخرف بسيط */
+        .gold-border-decor {
+            position: relative;
+            padding: 2rem;
+        }
+        .gold-border-decor::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            margin: 10px;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        /* زر ذهبي فخم */
+        .btn-gold {
+            background: linear-gradient(135deg, #D4AF37, #AA771C);
+            color: #000;
+            transition: all 0.3s ease;
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+            color: #000;
+        }
+
+        /* انميشن شاشة البداية (Splash Screen) */
+        #splash-screen {
+            position: fixed;
+            inset: 0;
+            background-color: #000000;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease-in-out, visibility 1s;
+        }
+
+        /* العناصر مخفية افتراضياً حتى يبدأ الأنيميشن */
+        .splash-text-1, .splash-text-2, .splash-line { opacity: 0; }
+        
+        /* تفعيل الأنيميشن بعد ضغط زر الدخول */
+        .start-anim .splash-text-1 {
+            animation: fadeInTop 1s ease-out 0.5s forwards;
+        }
+        .start-anim .splash-text-2 {
+            animation: fadeInZoom 1.5s ease-out 1.5s forwards;
+        }
+        .start-anim .splash-line {
+            animation: expandLine 1.5s ease-out 2s forwards;
+        }
+        
+        .splash-hidden {
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+        
+        @keyframes fadeInTop {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInZoom {
+            from { opacity: 0; transform: scale(0.9); filter: blur(4px); }
+            to { opacity: 1; transform: scale(1); filter: blur(0); }
+        }
+        @keyframes expandLine {
+            from { width: 0; opacity: 0; }
+            to { width: 200px; opacity: 1; }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.6); }
+        }
+
+        #enter-btn {
+            animation: pulseGlow 2s infinite;
+        }
+
+        /* زر التحكم بالموسيقى العائم */
+        #music-toggle {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            z-index: 50;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+        #music-toggle.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .music-playing {
+            animation: rotateIcon 4s linear infinite;
+        }
+        @keyframes rotateIcon {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* تخصيص مؤشر التمرير */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 4px; }
+    </style>
+</head>
+<body class="antialiased selection:bg-gold-DEFAULT selection:text-black overflow-hidden" id="main-body">
+
+    <!-- ملف الصوت الموسيقي (يجب استبدال الرابط برابط أغنية خطوة لاحقاً) -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://serv100.albumaty.com/2024/Albumaty.Com_hsyn_algsmy_fstank_alabyd.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- شاشة البداية (Splash Screen) -->
+    <div id="splash-screen">
+        <!-- زر الدخول لتفعيل الموسيقى والأنيميشن -->
+        <button id="enter-btn" class="btn-gold px-10 py-4 rounded-full font-bold text-xl flex items-center gap-3 transition-transform hover:scale-105">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+            اضغط للدخول
+        </button>
+
+        <div id="splash-content" class="hidden flex-col items-center justify-center">
+            <p class="splash-text-1 text-gold-light text-xl md:text-2xl mb-8 font-light tracking-widest text-shadow text-center">بِسْمِ خَالِقِ الْحُبِّ نَبْدَأ</p>
+            <div class="splash-text-2 flex items-center justify-center">
+                <h1 class="font-ruqaa text-6xl md:text-8xl text-gold-DEFAULT drop-shadow-[0_0_20px_rgba(212,175,55,0.4)]">أحمد</h1>
+                <span class="font-ruqaa text-4xl text-white mx-6">&</span>
+                <h1 class="font-ruqaa text-6xl md:text-8xl text-gold-DEFAULT drop-shadow-[0_0_20px_rgba(212,175,55,0.4)]">سارة</h1>
+            </div>
+            <div class="splash-line mt-12 h-px bg-gradient-to-r from-transparent via-gold-DEFAULT to-transparent"></div>
+        </div>
+    </div>
+
+    <!-- زر التحكم بالموسيقى العائم -->
+    <div id="music-toggle" class="glass-panel border-gold-DEFAULT/40 shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:scale-110">
+        <svg id="music-icon" class="w-6 h-6 text-gold-DEFAULT music-playing" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- أيقونة الصوت تعمل -->
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+        </svg>
+    </div>
+
+    <!-- القسم الرئيسي (الواجهة) -->
+    <header class="relative min-h-screen flex items-center justify-center hero-bg">
+        <div class="absolute inset-0 hero-overlay"></div>
+        
+        <div class="relative z-10 text-center px-4 w-full max-w-4xl mx-auto reveal active">
+            <p class="text-gold-light text-lg md:text-xl mb-6 font-light tracking-widest">بكل حب وفرح، ندعوكم لمشاركتنا أسعد لحظاتنا</p>
+            
+            <div class="my-10 flex flex-col items-center">
+                <h1 class="font-ruqaa text-6xl md:text-8xl text-white mb-4 drop-shadow-2xl">أحمد</h1>
+                <span class="font-ruqaa text-4xl text-gold-DEFAULT my-2">&</span>
+                <h1 class="font-ruqaa text-6xl md:text-8xl text-white mt-4 drop-shadow-2xl">سارة</h1>
+            </div>
+            
+            <div class="mt-12 flex flex-col items-center">
+                <p class="text-white text-xl md:text-2xl mb-2 font-light">الخميس، ١٥ أغسطس ٢٠٢٦</p>
+                <div class="w-24 h-px bg-gold-DEFAULT my-4 opacity-50"></div>
+                <p class="text-gray-400 text-lg">قاعة اللؤلؤة الملكية للمناسبات</p>
+            </div>
+
+            <a href="#rsvp" class="mt-12 inline-block btn-gold px-8 py-3 rounded-full text-lg font-bold">
+                تأكيد الحضور
+            </a>
+            
+            <!-- سهم التمرير للأسفل -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <svg class="w-6 h-6 text-gold-DEFAULT" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <!-- قسم الآية القرآنية أو المقولة -->
+    <section class="py-20 bg-dark">
+        <div class="container mx-auto px-6 text-center reveal">
+            <div class="w-16 h-16 mx-auto mb-6">
+                <!-- أيقونة خواتم بسيطة (SVG) -->
+                <svg fill="none" stroke="#D4AF37" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 12a4 4 0 100-8 4 4 0 000 8zm8 0a4 4 0 100-8 4 4 0 000 8zM8 12a4 4 0 100 8 4 4 0 000-8zm8 0a4 4 0 100 8 4 4 0 000-8z"></path>
+                </svg>
+            </div>
+            <h2 class="font-ruqaa text-3xl md:text-4xl text-gold-DEFAULT leading-relaxed max-w-2xl mx-auto text-shadow">
+                "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً"
+            </h2>
+            <p class="mt-6 text-gray-500 font-light">صدق الله العظيم</p>
+        </div>
+    </section>
+
+    <!-- قسم العداد التنازلي -->
+    <section class="py-20 bg-blackBg relative overflow-hidden">
+        <!-- زخرفة خلفية -->
+        <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23D4AF37\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+        
+        <div class="container mx-auto px-6 relative z-10 reveal">
+            <div class="text-center mb-12">
+                <h2 class="font-ruqaa text-4xl text-white mb-4">العد التنازلي <span class="text-gold-DEFAULT">لفرحتنا</span></h2>
+                <p class="text-gray-400">ننتظركم بشوق لمشاركتنا هذه الليلة</p>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-4 md:gap-8" id="countdown">
+                <!-- الأيام -->
+                <div class="glass-panel w-24 h-24 md:w-32 md:h-32 flex flex-col items-center justify-center rounded-xl text-white">
+                    <span class="text-3xl md:text-5xl font-bold font-ruqaa text-gold-light" id="days">00</span>
+                    <span class="text-xs md:text-sm text-gray-400 mt-2 uppercase tracking-wider">يوم</span>
+                </div>
+                <!-- الساعات -->
+                <div class="glass-panel w-24 h-24 md:w-32 md:h-32 flex flex-col items-center justify-center rounded-xl text-white">
+                    <span class="text-3xl md:text-5xl font-bold font-ruqaa text-gold-light" id="hours">00</span>
+                    <span class="text-xs md:text-sm text-gray-400 mt-2 uppercase tracking-wider">ساعة</span>
+                </div>
+                <!-- الدقائق -->
+                <div class="glass-panel w-24 h-24 md:w-32 md:h-32 flex flex-col items-center justify-center rounded-xl text-white">
+                    <span class="text-3xl md:text-5xl font-bold font-ruqaa text-gold-light" id="minutes">00</span>
+                    <span class="text-xs md:text-sm text-gray-400 mt-2 uppercase tracking-wider">دقيقة</span>
+                </div>
+                <!-- الثواني -->
+                <div class="glass-panel w-24 h-24 md:w-32 md:h-32 flex flex-col items-center justify-center rounded-xl text-white">
+                    <span class="text-3xl md:text-5xl font-bold font-ruqaa text-gold-light" id="seconds">00</span>
+                    <span class="text-xs md:text-sm text-gray-400 mt-2 uppercase tracking-wider">ثانية</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم تفاصيل الزفاف (المكان والزمان) -->
+    <section class="py-20 bg-darker">
+        <div class="container mx-auto px-6 reveal">
+            <div class="max-w-4xl mx-auto glass-panel rounded-2xl overflow-hidden shadow-2xl gold-border-decor">
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <!-- التفاصيل -->
+                    <div class="p-10 flex flex-col justify-center relative z-10">
+                        <h2 class="font-ruqaa text-3xl text-white mb-6 border-b border-gold-DEFAULT/30 pb-4 inline-block">تفاصيل <span class="text-gold-DEFAULT">الحفل</span></h2>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <svg class="w-6 h-6 text-gold-DEFAULT mt-1 ml-3 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <div>
+                                    <h3 class="font-bold text-lg text-white">الزمان</h3>
+                                    <p class="text-gray-300">الخميس، ١٥ أغسطس ٢٠٢٦</p>
+                                    <p class="text-gold-DEFAULT text-sm mt-1">يبدأ الاستقبال الساعة ٨:٠٠ مساءً</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <svg class="w-6 h-6 text-gold-DEFAULT mt-1 ml-3 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                <div>
+                                    <h3 class="font-bold text-lg text-white">المكان</h3>
+                                    <p class="text-gray-300">قاعة اللؤلؤة الملكية</p>
+                                    <p class="text-gray-400 text-sm mt-1">شارع الملوك، المدينة</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- الخريطة (تم إضافة تأثير رمادي/أسود عليها بالـ CSS) -->
+                    <div class="h-64 md:h-auto min-h-[300px] relative">
+                        <div class="absolute inset-0 bg-gold-DEFAULT/10 pointer-events-none mix-blend-overlay z-10"></div>
+                        <!-- خريطة جوجل -->
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509374!2d144.95373531550405!3d-37.817209742021234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4c2b349649%3A0xb6899234e561db11!2sEnvato!5e0!3m2!1sen!2s!4v1634170889211!5m2!1sen!2s" 
+                            class="absolute inset-0 w-full h-full opacity-80 filter grayscale contrast-125" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم تأكيد الحضور (RSVP) -->
+    <section id="rsvp" class="py-20 bg-dark relative">
+        <div class="container mx-auto px-6 max-w-3xl reveal">
+            <div class="text-center mb-10">
+                <h2 class="font-ruqaa text-4xl text-white mb-4">تأكيد <span class="text-gold-DEFAULT">الحضور</span> (RSVP)</h2>
+                <p class="text-gray-400">نرجو تأكيد حضوركم قبل تاريخ ١ أغسطس، لتكتمل فرحتنا بكم.</p>
+            </div>
+
+            <form id="rsvp-form" class="glass-panel p-8 md:p-10 rounded-2xl shadow-2xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-gray-300 font-bold mb-2 text-sm" for="name">الاسم الكريم</label>
+                        <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border border-gold-DEFAULT/20 focus:outline-none focus:border-gold-DEFAULT focus:ring-1 focus:ring-gold-DEFAULT transition-colors bg-blackBg text-white placeholder-gray-600" placeholder="أدخل اسمك" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 font-bold mb-2 text-sm" for="guests">عدد المرافقين</label>
+                        <select id="guests" class="w-full px-4 py-3 rounded-lg border border-gold-DEFAULT/20 focus:outline-none focus:border-gold-DEFAULT focus:ring-1 focus:ring-gold-DEFAULT transition-colors bg-blackBg text-white">
+                            <option value="0" class="bg-dark">بدون مرافقين</option>
+                            <option value="1" class="bg-dark">1</option>
+                            <option value="2" class="bg-dark">2</option>
+                            <option value="3" class="bg-dark">3</option>
+                            <option value="4" class="bg-dark">4</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <label class="block text-gray-300 font-bold mb-3 text-sm">هل ستشرفنا بالحضور؟</label>
+                    <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-6 sm:space-x-reverse">
+                        <label class="flex items-center cursor-pointer p-3 border border-gold-DEFAULT/20 bg-blackBg rounded-lg hover:border-gold-DEFAULT transition-colors flex-1">
+                            <input type="radio" name="attending" value="yes" class="w-5 h-5 text-gold-DEFAULT focus:ring-gold-DEFAULT border-gray-600 bg-dark" checked>
+                            <span class="mr-3 text-gray-200">بكل سرور، سأحضر</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer p-3 border border-gold-DEFAULT/20 bg-blackBg rounded-lg hover:border-gold-DEFAULT transition-colors flex-1">
+                            <input type="radio" name="attending" value="no" class="w-5 h-5 text-gold-DEFAULT focus:ring-gold-DEFAULT border-gray-600 bg-dark">
+                            <span class="mr-3 text-gray-200">أعتذر، لا يمكنني الحضور</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-300 font-bold mb-2 text-sm" for="message">رسالة للعروسين (اختياري)</label>
+                    <textarea id="message" rows="3" class="w-full px-4 py-3 rounded-lg border border-gold-DEFAULT/20 focus:outline-none focus:border-gold-DEFAULT focus:ring-1 focus:ring-gold-DEFAULT transition-colors bg-blackBg text-white placeholder-gray-600" placeholder="اكتب تهنئة..."></textarea>
+                </div>
+
+                <button type="submit" class="w-full btn-gold py-4 rounded-lg font-bold text-lg shadow-lg">
+                    إرسال التأكيد
+                </button>
+            </form>
+            
+            <!-- رسالة النجاح -->
+            <div id="success-message" class="hidden mt-6 p-4 bg-gold-DEFAULT/10 border border-gold-DEFAULT/30 text-gold-light rounded-lg text-center backdrop-blur-sm">
+                شكراً لك! تم استلام ردك بنجاح.
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer class="bg-blackBg py-10 text-center border-t border-gold-DEFAULT/20 relative">
+        <!-- خط ذهبي علوي للفوتر -->
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gold-DEFAULT rounded-b-full shadow-[0_0_15px_#D4AF37]"></div>
+        
+        <h2 class="font-ruqaa text-3xl text-gold-DEFAULT mb-2 mt-4">أحمد & سارة</h2>
+        <p class="text-gray-500 text-sm font-light">٢٠٢٦ &copy; دامت أفراحكم عامرة</p>
+    </footer>
+
+    <!-- سكريبتات التفاعل -->
+    <script>
+    // ضبط وقت بدء الموسيقى عند تحميل البيانات
+            var audio = document.getElementById("bg-music");
+    
+    // بمجرد أن تصبح البيانات جاهزة، نحدد وقت البدء
+    audio.addEventListener('loadeddata', function() {
+        audio.currentTime = 53; // 1:53 تعادل 113 ثانية
+    }, false);
+        // 0. منطق شاشة البداية والموسيقى (Splash Screen & Audio)
+        const enterBtn = document.getElementById('enter-btn');
+        const splashScreen = document.getElementById('splash-screen');
+        const splashContent = document.getElementById('splash-content');
+        const bgMusic = document.getElementById('bg-music');
+        const musicToggle = document.getElementById('music-toggle');
+        const musicIcon = document.getElementById('music-icon');
+        const body = document.getElementById('main-body');
+
+        // أيقونات الصوت (SVG)
+        const iconPlaying = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>`;
+        const iconMuted = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path>`;
+
+        enterBtn.addEventListener('click', () => {
+            // إخفاء الزر وإظهار المحتوى الترحيبي
+            enterBtn.style.display = 'none';
+            splashContent.classList.remove('hidden');
+            splashContent.classList.add('flex');
+            
+            // تشغيل الموسيقى
+            bgMusic.volume = 0.5; // مستوى صوت متوسط
+            bgMusic.play().catch(e => console.log("تم حظر التشغيل التلقائي:", e));
+            
+            // إظهار زر التحكم بالموسيقى
+            musicToggle.classList.add('visible');
+            
+            // بدء أنيميشن النصوص
+            splashScreen.classList.add('start-anim');
+
+            // إخفاء الشاشة كاملة بعد 4.5 ثواني والسماح بتمرير الصفحة
+            setTimeout(() => {
+                splashScreen.classList.add('splash-hidden');
+                body.classList.remove('overflow-hidden');
+                setTimeout(reveal, 100);
+            }, 4500);
+        });
+
+        // زر التبديل (تشغيل/إيقاف الموسيقى)
+        musicToggle.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicIcon.innerHTML = iconPlaying;
+                musicIcon.classList.add('music-playing');
+            } else {
+                bgMusic.pause();
+                musicIcon.innerHTML = iconMuted;
+                musicIcon.classList.remove('music-playing');
+            }
+        });
+
+        // 1. منطق العداد التنازلي
+        const weddingDate = new Date();
+        weddingDate.setMonth(weddingDate.getMonth() + 3);
+        weddingDate.setHours(20, 0, 0, 0);
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate.getTime() - now;
+
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = "<div class='text-3xl text-gold-DEFAULT font-ruqaa text-shadow'>لقد حان موعد الفرح!</div>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // 2. تأثير الظهور عند التمرير
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+
+        // 3. التعامل مع نموذج RSVP
+        document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const btn = this.querySelector('button');
+            btn.innerText = 'جاري الإرسال...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                this.style.display = 'none';
+                const successMsg = document.getElementById('success-message');
+                successMsg.classList.remove('hidden');
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
